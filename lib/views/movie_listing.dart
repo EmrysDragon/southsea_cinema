@@ -66,9 +66,10 @@ class _MovieListingState extends State<MovieListing> {
                       DropdownMenuEntry(value: 5, label: "5 Tickets"),
                     ],
                   ),
-                  SizedBox(width: 8, height: 8),
+                  SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () {
+                      //if ticket is 1 then it sets the label to singular other than plural
                       final ticketLabel =
                           _totalTickets == 1 ? 'ticket' : 'tickets';
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -82,6 +83,8 @@ class _MovieListingState extends State<MovieListing> {
                   ),
                 ];
 
+                //If screen is large enough can use row laoyout and returns the correct structure,
+                //otherwise it jumps these statements and returns in a column layout
                 if (constraints.maxWidth > 600) {
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
