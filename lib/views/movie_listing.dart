@@ -10,7 +10,7 @@ class MovieListing extends StatefulWidget {
 }
 
 class _MovieListingState extends State<MovieListing> {
-  int _totalTickets = 1;
+  int _totalTickets = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class _MovieListingState extends State<MovieListing> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Dune: Part Two (2024)', style: TextStyle(fontSize: 32)),
+            Text('Dune: Part Two (2024)', style: TextStyle(fontSize: 32, color: cinemaBrand, fontWeight: FontWeight.bold)),
             SizedBox(height: 16),
             Text('Southsea Cinema Room', style: TextStyle(fontSize: 20)),
             Text('Wednesday, 30th September 2026, 18:00 - ends at 20:46',
@@ -50,7 +50,7 @@ class _MovieListingState extends State<MovieListing> {
               builder: (context, constraints) {
                 final controls = [
                   DropdownMenu<int>(
-                    initialSelection: _totalTickets,
+                    initialSelection: 1,
                     onSelected: (int? value) {
                       if (value != null) {
                         setState(() {
