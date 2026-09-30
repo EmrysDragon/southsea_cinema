@@ -15,7 +15,15 @@ class MovieListing extends StatelessWidget {
         elevation: 0,
       ),
       drawer: const NavDrawer(),
-      body: const SizedBox.shrink(),
+      body: Container(
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text('Dune: Part Two (2024)', style: TextStyle(fontSize: 32)),
+            SizedBox(height: 16),
+          ],
+        ),
+      ),
     );
   }
 }
