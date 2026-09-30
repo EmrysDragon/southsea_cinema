@@ -53,6 +53,19 @@ class _MovieListingState extends State<MovieListing> {
             DropdownMenuEntry(value: 4, label: "4 Tickets"),
             DropdownMenuEntry(value: 5, label: "5 Tickets"),
             ]),
+
+            ElevatedButton(
+            onPressed: () {
+              final ticketLabel = _totalTickets == 1 ? 'ticket' : 'tickets'; // if its one ticket, use singular, otherwise plural 
+              ScaffoldMessenger.of(context).showSnackBar( //inbuilt bottom bar notif
+                SnackBar(
+                  content: Text('$_totalTickets $ticketLabel added to order'),
+                ),
+              );
+            },
+            child: const Text('Add to Basket'),
+            ),
+            
           ],
         ),
       ),
