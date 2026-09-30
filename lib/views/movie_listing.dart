@@ -23,10 +23,10 @@ class _MovieListingState extends State<MovieListing> {
       ),
       drawer: const NavDrawer(),
       body: Container(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
             Text('Dune: Part Two (2024)', style: TextStyle(fontSize: 32)),
             SizedBox(height: 16),
             Text('Southsea Cinema Room', style: TextStyle(fontSize: 20)),
@@ -53,6 +53,8 @@ class _MovieListingState extends State<MovieListing> {
             DropdownMenuEntry(value: 4, label: "4 Tickets"),
             DropdownMenuEntry(value: 5, label: "5 Tickets"),
             ]),
+
+            SizedBox(height: 8),
 
             ElevatedButton(
             onPressed: () {
