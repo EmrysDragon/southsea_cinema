@@ -5,6 +5,8 @@ class Movie {
   final String description;
   final String runTime;
   final String imagePath;
+  final String ageRating;
+
 
 
   const Movie({
@@ -13,8 +15,9 @@ class Movie {
     required this.description,
     required this.runTime,
     required this.imagePath,
+    required this.ageRating,
   });
 
 
-  
+
 }
