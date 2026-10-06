@@ -4,7 +4,7 @@ import 'package:southsea_cinema/models/movie.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 
 class MovieCard extends StatelessWidget {
-  int _totalTickets = 0;
+  int _totalTickets = 1;
   final Movie movie;
 
   MovieCard({super.key, required this.movie});
