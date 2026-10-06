@@ -1,106 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
+import 'package:southsea_cinema/models/movie.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
+import 'package:southsea_cinema/widgets/movie_card.dart';
+import 'package:southsea_cinema/repositories/movie_repository.dart';
 
-class MovieListing extends StatefulWidget {
-  const MovieListing({super.key});
+class MovieListingView extends StatelessWidget {
 
-  @override
-  State<MovieListing> createState() => _MovieListingState();
-}
-
-class _MovieListingState extends State<MovieListing> {
-  int _totalTickets = 0;
+  const MovieListingView({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    final MovieRepository movieRepository = MovieRepository();
+    final List<Movie> movies = movieRepository.getMovies();
+
     return Scaffold(
+
       appBar: AppBar(
-        title: const Text(appTitle, style: cinemaHeaderStyle),
+        title: const Text(
+          'Movie Listings',
+          style: cinemaHeaderStyle,
+        ),
         backgroundColor: cinemaSurface,
         iconTheme: const IconThemeData(color: cinemaBrand),
         elevation: 0,
       ),
       drawer: const NavDrawer(),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Dune: Part Two (2024)', style: TextStyle(fontSize: 32, color: cinemaBrand, fontWeight: FontWeight.bold)),
-            SizedBox(height: 16),
-            Text('Southsea Cinema Room', style: TextStyle(fontSize: 20)),
-            Text('Wednesday, 30th September 2026, 18:00 - ends at 20:46',
-                style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16),
-            Text(
-                'Please note that Discounts / Membership benefits will be applied once you have selected your tickets',
-                style: TextStyle(fontSize: 20)),
-            Text('Select Quantities (Up to 5 in total)',
-                style: TextStyle(fontSize: 20)),
-            SizedBox(height: 16),
-            Text(
-              'Tickets',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-
-            // Layout builder to switch between row and column based on available width
-            // Adds both widgets to controls, then finally uses as a child to change between row or column
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final controls = [
-                  DropdownMenu<int>(
-                    initialSelection: 1,
-                    onSelected: (int? value) {
-                      if (value != null) {
-                        setState(() {
-                          _totalTickets = value;
-                        });
-                      }
-                    },
-                    dropdownMenuEntries: [
-                      DropdownMenuEntry(value: 1, label: "1 Ticket"),
-                      DropdownMenuEntry(value: 2, label: "2 Tickets"),
-                      DropdownMenuEntry(value: 3, label: "3 Tickets"),
-                      DropdownMenuEntry(value: 4, label: "4 Tickets"),
-                      DropdownMenuEntry(value: 5, label: "5 Tickets"),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  ElevatedButton(
-                    onPressed: () {
-                      //if ticket is 1 then it sets the label to singular other than plural
-                      final ticketLabel =
-                          _totalTickets == 1 ? 'ticket' : 'tickets';
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content:
-                              Text('$_totalTickets $ticketLabel added to order'),
-                        ),
-                      );
-                    },
-                    child: const Text('Add to Basket'),
-                  ),
-                ];
-
-                //If screen is large enough can use row laoyout and returns the correct structure,
-                //otherwise it jumps these statements and returns in a column layout
-                if (constraints.maxWidth > 600) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: controls,
-                  );
-                }
-
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: controls,
-                );
-              },
-            ),
-          ],
-        ),
+      body: ListView.builder(
+        itemCount: movies.length,
+        itemBuilder: (context, index) {
+          return MovieCard(movie: movies[index]);
+        },
       ),
+
     );
+
+
+
   }
+
+
 }
+
