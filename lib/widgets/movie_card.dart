@@ -12,62 +12,71 @@ class MovieCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-
-      margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      color: cinemaSurface,
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          
           children: [
-
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                Text(movie.title, style: TextStyle(fontSize: 32, color: cinemaBrand, fontWeight: FontWeight.bold)),
+                Expanded(
+                  child: Text(
+                    movie.title,
+                    style: const TextStyle(
+                      fontSize: 32,
+                      color: cinemaBrand,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
                 const SizedBox(width: 8.0),
-                Text('(${movie.ageRating})', style: TextStyle(fontSize: 20, color: Colors.grey[700])),
-
+                Text(
+                  '(${movie.ageRating})',
+                  style: TextStyle(fontSize: 20, color: Colors.grey[700]),
+                ),
               ],
             ),
-
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 Image.asset(
                   movie.imagePath,
                   width: 100,
                   height: 150,
                   fit: BoxFit.cover,
                 ),
-
                 const SizedBox(width: 16.0),
-
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(movie.description, style: TextStyle(fontSize: 20)),
-                    const SizedBox(height: 8.0),
-                    Text('(Run time: ${movie.runTime} mins)', style: TextStyle(fontSize: 16, color: Colors.grey[700])),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(movie.description, style: const TextStyle(fontSize: 20)),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        '(Run time: ${movie.runTime} mins)',
+                        style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
-
-            Text('Book Tickets', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-
+            const SizedBox(height: 16.0),
+            const Text(
+              'Book Tickets',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Screening Time: ${movie.screeningTime}',
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 16.0),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Screening Time: ${movie.screeningTime}',
-                  style: const TextStyle(fontSize: 20),
-                ),
-
-                const SizedBox(width: 16.0),
-
                 DropdownMenu<int>(
                   initialSelection: 1,
                   onSelected: (int? value) {
@@ -83,9 +92,11 @@ class MovieCard extends StatelessWidget {
                     DropdownMenuEntry(value: 5, label: '5 Tickets'),
                   ],
                 ),
-
                 const SizedBox(width: 16.0),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: cinemaBrand,
+                  ),
                   onPressed: () {
                     final ticketLabel = _totalTickets == 1 ? 'ticket' : 'tickets';
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -96,8 +107,10 @@ class MovieCard extends StatelessWidget {
                       ),
                     );
                   },
-
-                  child: const Text('Book Now'),
+                  child: const Text(
+                    'Book Now',
+                    style: TextStyle(color: cinemaFontWhite),
+                  ),
                 ),
               ],
             ),
