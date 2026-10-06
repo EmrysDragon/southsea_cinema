@@ -36,10 +36,7 @@ class MovieListingView extends StatelessWidget {
 
     );
 
-
-
   }
-
 
 }
 
