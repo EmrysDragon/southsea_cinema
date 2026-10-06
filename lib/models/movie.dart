@@ -6,6 +6,7 @@ class Movie {
   final String runTime;
   final String imagePath;
   final String ageRating;
+  final String screeningTime;
 
 
 
@@ -16,6 +17,7 @@ class Movie {
     required this.runTime,
     required this.imagePath,
     required this.ageRating,
+    required this.screeningTime,
   });
 
 
