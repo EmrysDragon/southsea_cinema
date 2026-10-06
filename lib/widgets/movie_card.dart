@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/models/movie.dart';
+import 'package:southsea_cinema/views/movie_listing.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 
 class MovieCard extends StatelessWidget {
@@ -77,35 +78,21 @@ class MovieCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DropdownMenu<int>(
-                  initialSelection: 1,
-                  onSelected: (int? value) {
-                    if (value != null) {
-                      _totalTickets = value;
-                    }
-                  },
-                  dropdownMenuEntries: const [
-                    DropdownMenuEntry(value: 1, label: '1 Ticket'),
-                    DropdownMenuEntry(value: 2, label: '2 Tickets'),
-                    DropdownMenuEntry(value: 3, label: '3 Tickets'),
-                    DropdownMenuEntry(value: 4, label: '4 Tickets'),
-                    DropdownMenuEntry(value: 5, label: '5 Tickets'),
-                  ],
-                ),
+            
                 const SizedBox(width: 16.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: cinemaBrand,
                   ),
                   onPressed: () {
-                    final ticketLabel = _totalTickets == 1 ? 'ticket' : 'tickets';
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          '$_totalTickets $ticketLabel added to order for ${movie.title}',
-                        ),
+                    
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieListingView(movie: movie),
                       ),
                     );
+
                   },
                   child: const Text(
                     'Book Now',
