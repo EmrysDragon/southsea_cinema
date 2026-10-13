@@ -3,18 +3,24 @@ import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/models/movie.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 
-class MovieListingView extends StatelessWidget {
+class MovieListingView extends StatefulWidget {
   final Movie movie;
   const MovieListingView({super.key, required this.movie});
 
   @override
-  Widget build(BuildContext context) {
-    int totalTickets = 1;
+  State<MovieListingView> createState() => _MovieListingViewState();
+}
 
+class _MovieListingViewState extends State<MovieListingView> {
+  int totalTickets = 1;
+  int? orderedTickets;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          movie.title,
+          widget.movie.title,
           style: cinemaHeaderStyle,
         ),
         backgroundColor: cinemaSurface,
@@ -22,20 +28,21 @@ class MovieListingView extends StatelessWidget {
         elevation: 0,
       ),
       drawer: const NavDrawer(),
-      body: Card(
-        margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        color: cinemaSurface,
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+      body: SingleChildScrollView(
+        child: Card(
+          margin: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          color: cinemaSurface,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Text(
-                      movie.title,
+                      widget.movie.title,
                       style: const TextStyle(
                         fontSize: 32,
                         color: cinemaFontWhite,
@@ -45,7 +52,7 @@ class MovieListingView extends StatelessWidget {
                   ),
                   const SizedBox(width: 8.0),
                   Text(
-                    '(${movie.ageRating})',
+                    '(${widget.movie.ageRating})',
                     style: TextStyle(fontSize: 20, color: Colors.grey[700]),
                   ),
                 ],
@@ -54,7 +61,7 @@ class MovieListingView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Image.asset(
-                    movie.imagePath,
+                    widget.movie.imagePath,
                     width: 100,
                     height: 150,
                     fit: BoxFit.cover,
@@ -65,7 +72,7 @@ class MovieListingView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '(Run time: ${movie.runTime} mins)',
+                          '(Run time: ${widget.movie.runTime} mins)',
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.grey[700],
@@ -82,17 +89,18 @@ class MovieListingView extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               Text(
-                'Screening Time: ${movie.screeningTime}',
+                'Screening Time: ${widget.movie.screeningTime}',
                 style: const TextStyle(fontSize: 20),
               ),
-              Text(movie.description, style: const TextStyle(fontSize: 20)),
+              Text(widget.movie.description,
+                  style: const TextStyle(fontSize: 20)),
               const SizedBox(height: 16.0),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
                     child: Text(
-                      'Tickets (${movie.formattedPrice} each)',
+                      'Tickets (${widget.movie.formattedPrice} each)',
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
@@ -101,7 +109,9 @@ class MovieListingView extends StatelessWidget {
                       initialSelection: 1,
                       onSelected: (int? value) {
                         if (value != null) {
-                          totalTickets = value;
+                          setState(() {
+                            totalTickets = value;
+                          });
                         }
                       },
                       dropdownMenuEntries: const [
@@ -121,21 +131,19 @@ class MovieListingView extends StatelessWidget {
                   backgroundColor: cinemaBrand,
                 ),
                 onPressed: () {
-                  final ticketLabel = totalTickets == 1 ? 'ticket' : 'tickets';
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        '$totalTickets $ticketLabel added to order for ${movie.title}',
-                      ),
-                    ),
-                  );
+                  setState(() {
+                    orderedTickets = totalTickets;
+                  });
                 },
-                child: const Text(
-                  'Add to order',
-                  style: TextStyle(color: cinemaFontWhite),
+                child: Text(
+                  orderedTickets == null
+                      ? 'Add to order'
+                      : '$orderedTickets ${orderedTickets == 1 ? 'ticket' : 'tickets'} ordered',
+                  style: const TextStyle(color: cinemaFontWhite),
                 ),
               ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

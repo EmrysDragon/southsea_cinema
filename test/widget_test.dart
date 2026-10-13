@@ -27,5 +27,21 @@ void main() {
           findsOneWidget);
       expect(find.text('Book Now'), findsAny);
     });
+
+    testWidgets('Booking button shows the number of tickets ordered',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const SouthseaCinemaApp());
+
+      await tester.tap(find.text('Book Now').first);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Tickets (£12.50 each)'), findsOneWidget);
+
+      await tester.ensureVisible(find.text('Add to order'));
+      await tester.tap(find.text('Add to order'));
+      await tester.pump();
+
+      expect(find.text('1 ticket ordered'), findsOneWidget);
+    });
   });
 }
