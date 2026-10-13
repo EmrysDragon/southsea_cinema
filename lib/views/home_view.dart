@@ -10,7 +10,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final MovieRepository movieRepository = MovieRepository();
     final List<Movie> movies = movieRepository.getMovies();
 

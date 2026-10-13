@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/models/movie.dart';
 import 'package:southsea_cinema/views/movie_listing.dart';
-import 'package:southsea_cinema/widgets/nav_drawer.dart';
 
 class MovieCard extends StatelessWidget {
-  int _totalTickets = 1;
   final Movie movie;
 
-  MovieCard({super.key, required this.movie});
+  const MovieCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +52,8 @@ class MovieCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(movie.description, style: const TextStyle(fontSize: 20)),
+                      Text(movie.description,
+                          style: const TextStyle(fontSize: 20)),
                       const SizedBox(height: 8.0),
                       Text(
                         '(Run time: ${movie.runTime} mins)',
@@ -78,21 +77,18 @@ class MovieCard extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-            
                 const SizedBox(width: 16.0),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: cinemaBrand,
                   ),
                   onPressed: () {
-                    
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => MovieListingView(movie: movie),
                       ),
                     );
-
                   },
                   child: const Text(
                     'Book Now',

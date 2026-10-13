@@ -1,5 +1,4 @@
 class Movie {
-
   final String id;
   final String title;
   final String description;
@@ -8,8 +7,6 @@ class Movie {
   final String ageRating;
   final String screeningTime;
   final double price;
-
-
 
   const Movie({
     required this.id,
@@ -23,5 +20,4 @@ class Movie {
   });
 
   String get formattedPrice => '£${price.toStringAsFixed(2)}';
-
 }
