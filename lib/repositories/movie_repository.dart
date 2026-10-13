@@ -14,6 +14,7 @@ class MovieRepository {
         ageRating: 'PG-13',
         imagePath: 'assets/images/dune2Poster1.jfif',
         screeningTime: 'Wednesday, 30th September 2026, 18:00 - 20:46',
+        price: 12.50
 
       ),
 
@@ -26,6 +27,7 @@ class MovieRepository {
         ageRating: 'PG-13',
         imagePath: 'assets/images/theBatmanPoster.jfif',
         screeningTime: 'Friday, 2nd October 2026, 20:00 - 22:56',
+        price: 10.00
 
       )
 

@@ -92,7 +92,7 @@ class MovieListingView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'Tickets (£6.00 each)',
+                      'Tickets (${movie.formattedPrice} each)',
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),

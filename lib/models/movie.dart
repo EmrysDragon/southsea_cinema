@@ -7,6 +7,7 @@ class Movie {
   final String imagePath;
   final String ageRating;
   final String screeningTime;
+  final double price;
 
 
 
@@ -17,9 +18,10 @@ class Movie {
     required this.runTime,
     required this.imagePath,
     required this.ageRating,
+    required this.price,
     required this.screeningTime,
   });
 
-
+  String get formattedPrice => '£${price.toStringAsFixed(2)}';
 
 }
