@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:southsea_cinema/models/movie.dart';
+import 'package:southsea_cinema/repositories/movie_repository.dart';
 
 void main() {
 
@@ -54,6 +55,23 @@ void main() {
 
         expect(movie2.formattedPrice, '£12.00');
 
+
+      });
+
+      test('Get Movie by ID when ID not null', () {
+        final movieRepository = MovieRepository();
+        final movie = movieRepository.getMovieById('dune')!;
+
+        expect(movie, isNotNull);
+        expect(movie.title, 'Dune: Part Two (2024)');
+
+      });
+
+      test('Get Movie by ID when ID is null', () {
+        final movieRepository = MovieRepository();
+        final Movie? movie = movieRepository.getMovieById('invalid');
+
+        expect(movie, isNull);
 
       });
 
