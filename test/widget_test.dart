@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:southsea_cinema/main.dart';
 import 'package:southsea_cinema/views/home_view.dart';
@@ -28,7 +29,7 @@ void main() {
       expect(find.text('Book Now'), findsAny);
     });
 
-    testWidgets('Booking button shows the number of tickets ordered',
+    testWidgets('Booking navigation',
         (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());
 
@@ -42,6 +43,23 @@ void main() {
       await tester.pump();
 
       expect(find.text('1 ticket ordered'), findsOneWidget);
+
+      await tester.tap(find.byTooltip('Open navigation menu'));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Home'));
+      await tester.pumpAndSettle();
+
+      // ON HOME PAGE
+
+      final secondButton = find.widgetWithText(ElevatedButton, 'Book Now').at(1);
+      await tester.ensureVisible(secondButton);
+      await tester.pumpAndSettle();
+      await tester.tap(secondButton, warnIfMissed: true);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Tickets (£10.00 each)'), findsOneWidget);
+
     });
   });
 }
